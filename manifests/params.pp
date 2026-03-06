@@ -50,6 +50,7 @@ class puppetdb::params inherits puppetdb::globals {
   $report_ttl             = '14d'
 
   $facts_blocklist        = undef
+  $facts_blocklist_type   = undef
 
   $gc_interval               = '60'
   $node_purge_gc_batch_limit = '25'

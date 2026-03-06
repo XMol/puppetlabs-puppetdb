@@ -156,6 +156,15 @@ describe 'puppetdb::server::database', type: :class do
             'setting' => 'facts-blocklist',
           )
       }
+      it {
+        is_expected.to contain_ini_setting('puppetdb_facts_blocklist')
+          .with(
+            'ensure'  => 'absent',
+            'path'    => "#{pdbconfdir}/database.ini",
+            'section' => 'database',
+            'setting' => 'facts-blocklist-type',
+          )
+      }
     end
   end
 
@@ -177,6 +186,40 @@ describe 'puppetdb::server::database', type: :class do
           'section' => 'database',
           'setting' => 'facts-blocklist',
           'value'   => 'one_fact, another_fact',
+        )
+    }
+  end
+
+  describe 'when using "literal" facts_blocklist_type' do
+    let(:params) do
+      {'facts_blocklist_type' => 'literal'}
+    end
+
+    it {
+      is_expected.to contain_ini_setting('puppetdb_facts_blocklist')
+        .with(
+          'ensure'  => 'present',
+          'path'    => '/etc/puppetlabs/puppetdb/conf.d/database.ini',
+          'section' => 'database',
+          'setting' => 'facts-blocklist-type',
+          'value'   => 'literal',
+        )
+    }
+  end
+
+  describe 'when using "regex" facts_blocklist_type' do
+    let(:params) do
+      {'facts_blocklist_type' => 'regex'}
+    end
+
+    it {
+      is_expected.to contain_ini_setting('puppetdb_facts_blocklist')
+        .with(
+          'ensure'  => 'present',
+          'path'    => '/etc/puppetlabs/puppetdb/conf.d/database.ini',
+          'section' => 'database',
+          'setting' => 'facts-blocklist-type',
+          'value'   => 'regex',
         )
     }
   end

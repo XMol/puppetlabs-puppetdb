@@ -123,6 +123,10 @@
 # @param facts_blocklist
 #   A list of fact names to be ignored whenever submitted.
 #
+# @param facts_blocklist_type
+#   Control how to interpret the facts-blocklist setting, either literally,
+#   or as Java regular expressions.
+#
 # @param gc_interval
 #   This controls how often (in minutes) to compact the database. The compaction
 #   process reclaims space and deletes unnecessary rows. If not supplied, the
@@ -389,6 +393,7 @@ class puppetdb (
   Pattern[/\A[0-9dhms]+\Z/]                                            $node_purge_ttl                    = $puppetdb::params::node_purge_ttl,
   Pattern[/\A[0-9dhms]+\Z/]                                            $report_ttl                        = $puppetdb::params::report_ttl,
   Optional[Array]                                                      $facts_blocklist                   = $puppetdb::params::facts_blocklist,
+  Optional[Enum['literal', 'regex']]                                   $facts_blocklist_type              = $puppetdb::params::facts_blocklist_type,
   Variant[Integer[0], Pattern[/\A[0-9]+\Z/]]                           $gc_interval                       = $puppetdb::params::gc_interval,
   Variant[Integer[0], Pattern[/\A[0-9]+\Z/]]                           $node_purge_gc_batch_limit         = $puppetdb::params::node_purge_gc_batch_limit,
   Variant[Integer[0], Pattern[/\A[0-9]+\Z/]]                           $conn_max_age                      = $puppetdb::params::conn_max_age,
@@ -465,6 +470,7 @@ class puppetdb (
     node_purge_ttl                    => $node_purge_ttl,
     report_ttl                        => $report_ttl,
     facts_blocklist                   => $facts_blocklist,
+    facts_blocklist_type              => $facts_blocklist_type,
     gc_interval                       => $gc_interval,
     node_purge_gc_batch_limit         => $node_purge_gc_batch_limit,
     conn_max_age                      => $conn_max_age,

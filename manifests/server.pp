@@ -94,6 +94,10 @@
 # @param facts_blocklist
 #   A list of fact names to be ignored whenever submitted.
 #
+# @param facts_blocklist_type
+#   Control how to interpret the facts-blocklist setting, either literally,
+#   or as Java regular expressions.
+#
 # @param gc_interval
 #   This controls how often (in minutes) to compact the database. The compaction
 #   process reclaims space and deletes unnecessary rows. If not supplied, the
@@ -473,6 +477,7 @@ class puppetdb::server (
     node_purge_ttl            => $node_purge_ttl,
     report_ttl                => $report_ttl,
     facts_blocklist           => $facts_blocklist,
+    facts_blocklist_type      => $facts_blocklist_type,
     gc_interval               => $gc_interval,
     node_purge_gc_batch_limit => $node_purge_gc_batch_limit,
     conn_max_age              => $conn_max_age,
